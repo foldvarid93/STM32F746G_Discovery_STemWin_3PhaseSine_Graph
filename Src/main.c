@@ -91,7 +91,6 @@ extern uint8_t BSP_TS_Init(uint16_t , uint16_t);
 void k_TouchUpdate(void);
 /* USER CODE BEGIN PFP */
 GUI_PID_STATE ts;
-extern volatile GUI_TIMER_TIME OS_TimeMS;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -112,7 +111,7 @@ int main(void)
   SCB_EnableICache();
 
   /* Enable D-Cache---------------------------------------------------------*/
-  SCB_EnableDCache();
+  //SCB_EnableDCache();
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -144,12 +143,7 @@ int main(void)
   GRAPHICS_Init();
   
   /* Graphic application */
-  MX_I2C3_Init();
-  if (BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize()) != TS_OK){
-       while (1);
-  }
-  BSP_TS_ITConfig();
-  BSP_TS_ITClear();
+
   MainTask();
     
   /* Infinite loop */
@@ -220,11 +214,11 @@ void SystemClock_Config(void)
 void HAL_SYSTICK_Callback(void)
 {
 	HAL_IncTick();
-	OS_TimeMS++;
+	GRAPHICS_IncTick();
 }
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(GPIO_Pin==GPIO_PIN_13){
-		HAL_Delay(1);
+		//HAL_Delay(1);
 		k_TouchUpdate();
 		BSP_TS_ITClear();
 	}

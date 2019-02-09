@@ -22,7 +22,7 @@
 // USER END
 
 #include "DIALOG.h"
-
+#include "stdlib.h"
 /*********************************************************************
 *
 *       Defines
@@ -65,6 +65,7 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 */
 
 // USER START (Optionally insert additional static code)
+static GRAPH_DATA_Handle _hDataYT1;
 // USER END
 
 /*********************************************************************
@@ -73,10 +74,27 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 */
 static void _cbDialog(WM_MESSAGE * pMsg) {
   // USER START (Optionally insert additional variables)
+	WM_HWIN hItem;
   // USER END
 
   switch (pMsg->MsgId) {
   // USER START (Optionally insert additional message handling)
+  case WM_INIT_DIALOG:
+    //
+    // Initialization of 'Window'
+    //
+    hItem = pMsg->hWin;
+    WINDOW_SetBkColor(hItem, GUI_BLACK);
+    //
+    // Graph YT
+    //
+    hItem = WM_GetDialogItem(pMsg->hWin, ID_GRAPH_0);
+
+    _hDataYT1 = GRAPH_DATA_YT_Create(GUI_ORANGE, 470, NULL, 0);
+
+    GRAPH_AttachData(hItem, _hDataYT1);
+    GRAPH_SetGridVis(hItem, 1);
+    break;
   // USER END
   default:
     WM_DefaultProc(pMsg);
@@ -105,9 +123,15 @@ WM_HWIN CreateWindow(void) {
 // USER START (Optionally insert additional public code)
 void MainTask(void)
 {
-	//GUI_Init();
 	CreateWindow();
+	int Angle=0;
 	while(1) {
+		int NewData=GUI_sin(Angle)/10;
+		Angle+=10;
+		if(Angle==0xfff){
+			Angle=0;
+		}
+		GRAPH_DATA_YT_AddValue(_hDataYT1, NewData+131);
 		GUI_Delay(10);
 	}
 }

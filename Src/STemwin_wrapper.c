@@ -1003,11 +1003,11 @@ void GRAPHICS_Init(void)
   GUI_Init();
 
 /* Enable the multi-buffering functionality */
-  // WM_MULTIBUF_Enable(1);
+   WM_MULTIBUF_Enable(1);
 
   /* Activate the use of memory device feature */
      /* USER CODE BEGIN WM_SetCreateFlags */
-      //WM_SetCreateFlags(WM_CF_MEMDEV);
+      WM_SetCreateFlags(WM_CF_MEMDEV);
     /* USER CODE END WM_SetCreateFlags */
 }
 
