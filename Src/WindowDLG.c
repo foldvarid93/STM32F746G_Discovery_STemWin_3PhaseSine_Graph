@@ -65,7 +65,9 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 */
 
 // USER START (Optionally insert additional static code)
-static GRAPH_DATA_Handle _hDataYT1;
+GRAPH_DATA_Handle PhaseDataA;
+GRAPH_DATA_Handle PhaseDataB;
+GRAPH_DATA_Handle PhaseDataC;
 // USER END
 
 /*********************************************************************
@@ -84,15 +86,19 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     // Initialization of 'Window'
     //
     hItem = pMsg->hWin;
-    WINDOW_SetBkColor(hItem, GUI_BLACK);
+    WINDOW_SetBkColor(hItem, GUI_WHITE);
     //
     // Graph YT
     //
     hItem = WM_GetDialogItem(pMsg->hWin, ID_GRAPH_0);
 
-    _hDataYT1 = GRAPH_DATA_YT_Create(GUI_ORANGE, 470, NULL, 0);
+    PhaseDataA = GRAPH_DATA_YT_Create(GUI_ORANGE, 470, NULL, 0);
+    PhaseDataB = GRAPH_DATA_YT_Create(GUI_YELLOW, 470, NULL, 0);
+    PhaseDataC = GRAPH_DATA_YT_Create(GUI_GREEN, 470, NULL, 0);
 
-    GRAPH_AttachData(hItem, _hDataYT1);
+    GRAPH_AttachData(hItem, PhaseDataA);
+    GRAPH_AttachData(hItem, PhaseDataB);
+    GRAPH_AttachData(hItem, PhaseDataC);
     GRAPH_SetGridVis(hItem, 1);
     break;
   // USER END
@@ -124,14 +130,25 @@ WM_HWIN CreateWindow(void) {
 void MainTask(void)
 {
 	CreateWindow();
-	int Angle=0;
+	int AngleA=0;
+	int AngleB=0x555;
+	int AngleC=0xAAA;
 	while(1) {
-		int NewData=GUI_sin(Angle)/10;
-		Angle+=10;
-		if(Angle==0xfff){
-			Angle=0;
+		int NewPhaseDataA =GUI_sin(AngleA)/10;
+		int NewPhaseDataB =GUI_sin(AngleB)/10;
+		int NewPhaseDataC =GUI_sin(AngleC)/10;
+		AngleA+=10;
+		AngleB+=10;
+		AngleC+=10;
+		if(AngleA==0xfff){
+			AngleA=0;
+			AngleB=0x555;
+			AngleC=0xAAA;
 		}
-		GRAPH_DATA_YT_AddValue(_hDataYT1, NewData+131);
+		GRAPH_DATA_YT_AddValue(PhaseDataA, NewPhaseDataA+131);
+		GRAPH_DATA_YT_AddValue(PhaseDataB, NewPhaseDataB+131);
+		GRAPH_DATA_YT_AddValue(PhaseDataC, NewPhaseDataC+131);
+		GUI_Exec();
 		GUI_Delay(10);
 	}
 }

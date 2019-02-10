@@ -87,10 +87,8 @@ void SystemClock_Config(void);
 extern void GRAPHICS_HW_Init(void);
 extern void GRAPHICS_Init(void);
 extern void GRAPHICS_MainTask(void);
-extern uint8_t BSP_TS_Init(uint16_t , uint16_t);
 void k_TouchUpdate(void);
 /* USER CODE BEGIN PFP */
-GUI_PID_STATE ts;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -143,7 +141,6 @@ int main(void)
   GRAPHICS_Init();
   
   /* Graphic application */
-
   MainTask();
     
   /* Infinite loop */
@@ -154,8 +151,7 @@ int main(void)
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
-{
+void SystemClock_Config(void){
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
@@ -209,16 +205,13 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
-
 /* USER CODE BEGIN 4 */
-void HAL_SYSTICK_Callback(void)
-{
+void HAL_SYSTICK_Callback(void){
 	HAL_IncTick();
 	GRAPHICS_IncTick();
 }
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(GPIO_Pin==GPIO_PIN_13){
-		//HAL_Delay(1);
 		k_TouchUpdate();
 		BSP_TS_ITClear();
 	}
@@ -261,30 +254,7 @@ void k_TouchUpdate(void){
     }
   }
 }
-
 /* USER CODE END 4 */
-
-/**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM6 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  /* USER CODE BEGIN Callback 0 */
-
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
-    //HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
-}
-
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None

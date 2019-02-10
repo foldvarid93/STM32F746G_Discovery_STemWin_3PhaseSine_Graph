@@ -47,7 +47,10 @@
 #include "STemwin_wrapper.h"
 #include "GUI_Private.h"
 #include "WM.h"
-
+#include "stm32746g_discovery.h"
+#include "stm32746g_discovery_lcd.h"
+#include "stm32746g_discovery_sdram.h"
+#include "stm32746g_discovery_ts.h"
 /** @addtogroup LCD CONFIGURATION
 * @{
 */
@@ -978,10 +981,10 @@ int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData)
   }
   return r; 
 }
+
 void GRAPHICS_IncTick(void){
-  
    OS_TimeMS++;
-} 
+}
 
 void GRAPHICS_HW_Init(void)
 { 
@@ -990,13 +993,17 @@ void GRAPHICS_HW_Init(void)
   MX_LCD_Init();      /* LTDC struc, layer struct */
   MX_DMA2D_Init();
   DMA2D_Init();
-  //
-  BSP_TS_Init(480,272);
-  //BSP_TS_ITConfig();
-  //BSP_TS_ITClear();
-  //__HAL_RCC_CRC_CLK_ENABLE();
+//Touch panel init
+#if   GUI_SUPPORT_TOUCH
+  //TS_IO_Init();
+  MX_I2C3_Init();
+  if (BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize()) != TS_OK){
+       while (1);
+  }
+  BSP_TS_ITConfig();
+  BSP_TS_ITClear();
+#endif
 }
-
 void GRAPHICS_Init(void)
 {
   /* Initialize the GUI */
