@@ -70,14 +70,16 @@
 #define XSIZE_PHYS      480
 #define YSIZE_PHYS      272   
 
-#define NUM_BUFFERS         1   /* Number of multiple buffers to be used */
+#define NUM_BUFFERS         2   /* Number of multiple buffers to be used */
 #define NUM_VSCREENS        1  /* Number of virtual screens to be used */
 
 #define COLOR_CONVERSION_0      GUICC_M8888I
+#define COLOR_CONVERSION_1      GUICC_M8888I
 #define DISPLAY_DRIVER_0        GUIDRV_LIN_32
+#define DISPLAY_DRIVER_1        GUIDRV_LIN_32
 
 #define LCD_LAYER0_FRAME_BUFFER        ((uint32_t)0xc0000000) /* LTDC Layer 0 frame buffer */
-
+#define LCD_LAYER1_FRAME_BUFFER  		((uint32_t)0xC0400000)
 extern LTDC_HandleTypeDef    hltdc;
 extern DMA2D_HandleTypeDef   hdma2d;
 
@@ -995,8 +997,7 @@ void GRAPHICS_HW_Init(void)
   DMA2D_Init();
 //Touch panel init
 #if   GUI_SUPPORT_TOUCH
-  //TS_IO_Init();
-  MX_I2C3_Init();
+  TS_IO_Init();//MX_I2C3_Init();
   if (BSP_TS_Init(BSP_LCD_GetXSize(), BSP_LCD_GetYSize()) != TS_OK){
        while (1);
   }
@@ -1010,7 +1011,7 @@ void GRAPHICS_Init(void)
   GUI_Init();
 
 /* Enable the multi-buffering functionality */
-   WM_MULTIBUF_Enable(1);
+   //WM_MULTIBUF_Enable(1);
 
   /* Activate the use of memory device feature */
      /* USER CODE BEGIN WM_SetCreateFlags */

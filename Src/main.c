@@ -106,7 +106,7 @@ int main(void)
   /* USER CODE END 1 */
 
   /* Enable I-Cache---------------------------------------------------------*/
-  SCB_EnableICache();
+  //SCB_EnableICache();
 
   /* Enable D-Cache---------------------------------------------------------*/
   //SCB_EnableDCache();
@@ -141,8 +141,8 @@ int main(void)
   GRAPHICS_Init();
   
   /* Graphic application */
-  MainTask();
-    
+  //MainTask();
+  MainTask2();
   /* Infinite loop */
   for(;;);
 }

@@ -655,7 +655,7 @@ void HAL_DMA2D_MspDeInit(DMA2D_HandleTypeDef* dma2dHandle)
   }
 }
 
-void MX_I2C3_Init(void)
+/*void MX_I2C3_Init(void)
 {
 	__HAL_RCC_I2C3_CLK_ENABLE();
   hi2c3.Instance = I2C3;
@@ -671,18 +671,18 @@ void MX_I2C3_Init(void)
   {
     Error_Handler( );
   }
-    /**Configure Analogue filter
-    */
+    *Configure Analogue filter
+
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
 	  Error_Handler( );
   }
-    /**Configure Digital filter
-    */
+    *Configure Digital filter
+
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
   {
 	  Error_Handler( );
   }
-}
+}*/
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
