@@ -92,9 +92,9 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     //
     hItem = WM_GetDialogItem(pMsg->hWin, ID_GRAPH_0);
 
-    PhaseDataA = GRAPH_DATA_YT_Create(GUI_RED, 470, NULL, 0);
-    PhaseDataB = GRAPH_DATA_YT_Create(GUI_GREEN, 470, NULL, 0);
-    PhaseDataC = GRAPH_DATA_YT_Create(GUI_BLUE, 470, NULL, 0);
+    PhaseDataA = GRAPH_DATA_YT_Create(GUI_ORANGE, 470, NULL, 0);
+    PhaseDataB = GRAPH_DATA_YT_Create(GUI_YELLOW, 470, NULL, 0);
+    PhaseDataC = GRAPH_DATA_YT_Create(GUI_GREEN, 470, NULL, 0);
 
     GRAPH_AttachData(hItem, PhaseDataA);
     GRAPH_AttachData(hItem, PhaseDataB);
