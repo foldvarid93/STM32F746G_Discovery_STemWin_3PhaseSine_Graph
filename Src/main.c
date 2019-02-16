@@ -86,7 +86,7 @@
 void SystemClock_Config(void);
 extern void GRAPHICS_HW_Init(void);
 extern void GRAPHICS_Init(void);
-extern void GRAPHICS_MainTask(void);
+extern void MainTask(void);
 void k_TouchUpdate(void);
 /* USER CODE BEGIN PFP */
 /* USER CODE END PFP */
@@ -142,7 +142,7 @@ int main(void)
   
   /* Graphic application */
   //MainTask();
-  MainTask2();
+  MainTask();
   /* Infinite loop */
   for(;;);
 }

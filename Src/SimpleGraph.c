@@ -194,7 +194,7 @@ static void _cbBk(WM_MESSAGE * pMsg) {
 *
 *       MainTask
 */
-void MainTask2(void) {
+void MainTask(void) {
   WM_SetCallback(WM_HBKWIN, _cbBk);
   GUI_CreateDialogBox(_aDialogCreate, GUI_COUNTOF(_aDialogCreate), _cbDialog, WM_HBKWIN, 0, 0);
   while (1) {
