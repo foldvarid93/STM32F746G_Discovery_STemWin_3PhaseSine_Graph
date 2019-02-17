@@ -71,7 +71,7 @@
 #define YSIZE_PHYS      272   
 
 #define NUM_BUFFERS         2   /* Number of multiple buffers to be used */
-#define NUM_VSCREENS        1  /* Number of virtual screens to be used */
+#define NUM_VSCREENS        0  /* Number of virtual screens to be used */
 
 #define COLOR_CONVERSION_0      GUICC_M8888I
 #define COLOR_CONVERSION_1      GUICC_M8888I
@@ -903,7 +903,11 @@ int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData)
   U32 addr;
   int xPos, yPos;
   U32 Color;
-    
+
+  LCD_X_SHOWBUFFER_INFO * p;
+  unsigned long BufferSize;
+  unsigned long Addr;
+
   switch (Cmd) 
   {
 
@@ -913,7 +917,22 @@ int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData)
     break;
 
   case LCD_X_SHOWBUFFER: 
-    layer_prop[LayerIndex].pending_buffer = ((LCD_X_SHOWBUFFER_INFO *)pData)->Index;
+    //layer_prop[LayerIndex].pending_buffer = ((LCD_X_SHOWBUFFER_INFO *)pData)->Index;
+    p = (LCD_X_SHOWBUFFER_INFO *)pData;
+    //
+    // Calculate address of the given buffer
+    //
+    BufferSize = GetBufferSize(LayerIndex);
+    Addr = LCD_LAYER0_FRAME_BUFFER + BufferSize * p->Index;
+    //
+    // Make the given buffer visible
+    //
+    //AT91C_LCDC_BA1 = Addr;
+    //
+    // Send a confirmation that the buffer is visible now
+    //
+    GUI_MULTIBUF_Confirm(p->Index);
+    break;
     break;
 
   case LCD_X_SETLUTENTRY: 
@@ -1011,11 +1030,11 @@ void GRAPHICS_Init(void)
   GUI_Init();
 
 /* Enable the multi-buffering functionality */
-   //WM_MULTIBUF_Enable(1);
+   WM_MULTIBUF_Enable(1);
 
   /* Activate the use of memory device feature */
      /* USER CODE BEGIN WM_SetCreateFlags */
-      WM_SetCreateFlags(WM_CF_MEMDEV);
+      //WM_SetCreateFlags(WM_CF_MEMDEV);
     /* USER CODE END WM_SetCreateFlags */
 }
 
