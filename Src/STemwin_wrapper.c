@@ -71,7 +71,7 @@
 #define YSIZE_PHYS      272   
 
 #define NUM_BUFFERS         2   /* Number of multiple buffers to be used */
-#define NUM_VSCREENS        0  /* Number of virtual screens to be used */
+#define NUM_VSCREENS        1  /* Number of virtual screens to be used */
 
 #define COLOR_CONVERSION_0      GUICC_M8888I
 #define COLOR_CONVERSION_1      GUICC_M8888I
@@ -927,7 +927,7 @@ int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData)
     //
     // Make the given buffer visible
     //
-    //AT91C_LCDC_BA1 = Addr;
+    HAL_LTDC_SetAddress(&hltdc, Addr, LayerIndex);
     //
     // Send a confirmation that the buffer is visible now
     //
@@ -1030,7 +1030,7 @@ void GRAPHICS_Init(void)
   GUI_Init();
 
 /* Enable the multi-buffering functionality */
-   WM_MULTIBUF_Enable(1);
+  WM_MULTIBUF_Enable(1);
 
   /* Activate the use of memory device feature */
      /* USER CODE BEGIN WM_SetCreateFlags */
