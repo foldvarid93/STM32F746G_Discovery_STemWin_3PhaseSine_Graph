@@ -126,14 +126,14 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     //
     // Create a timer which updates the GRAPH
     //
-    hTimer = WM_CreateTimer(pMsg->hWin, 0, 0, 0);
+    hTimer = WM_CreateTimer(pMsg->hWin, 0, 20, 0);
     break;
   case WM_TIMER:
     //
     // Depending on Stop, restart the graph
     //
     if (Stop == 0) {
-      WM_RestartTimer(hTimer, 0);
+      WM_RestartTimer(hTimer, 20);
     }
     //
     // Calculate new values for the graph and add them to the data items, the GRAPH gets updated automatically
@@ -159,7 +159,7 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     //
     Stop ^= 1;
     if (Stop == 0) {
-      WM_RestartTimer(hTimer, 0);
+      WM_RestartTimer(hTimer, 20);
     }
     break;
   default:
@@ -198,6 +198,6 @@ void MainTask(void) {
   WM_SetCallback(WM_HBKWIN, _cbBk);
   GUI_CreateDialogBox(_aDialogCreate, GUI_COUNTOF(_aDialogCreate), _cbDialog, WM_HBKWIN, 0, 0);
   while (1) {
-	  GUI_Delay(10);
+	  GUI_Delay(100);
   }
 }
