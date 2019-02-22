@@ -953,7 +953,6 @@ int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData) {
 	U32 Color;
 
 	LCD_X_SHOWBUFFER_INFO * p;
-	unsigned long BufferSize;
 	unsigned long Addr;
 
 	switch (Cmd) {

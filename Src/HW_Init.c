@@ -131,7 +131,6 @@ void MX_LCD_Init(void)
   {
     Error_Handler( );
   }
-
 }
 
 /**
@@ -344,7 +343,6 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef* ltdcHandle)
     HAL_NVIC_SetPriority(LTDC_ER_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(LTDC_ER_IRQn);
   /* USER CODE BEGIN LTDC_MspInit 1 */
-
   /* USER CODE END LTDC_MspInit 1 */
   }
 }
@@ -654,35 +652,4 @@ void HAL_DMA2D_MspDeInit(DMA2D_HandleTypeDef* dma2dHandle)
   /* USER CODE END DMA2D_MspDeInit 1 */
   }
 }
-
-/*void MX_I2C3_Init(void)
-{
-	__HAL_RCC_I2C3_CLK_ENABLE();
-  hi2c3.Instance = I2C3;
-  hi2c3.Init.Timing = 0x00C0EAFF;
-  hi2c3.Init.OwnAddress1 = 224;
-  hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c3.Init.OwnAddress2 = 0;
-  hi2c3.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-  hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c3) != HAL_OK)
-  {
-    Error_Handler( );
-  }
-    *Configure Analogue filter
-
-  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
-  {
-	  Error_Handler( );
-  }
-    *Configure Digital filter
-
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
-  {
-	  Error_Handler( );
-  }
-}*/
-
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
